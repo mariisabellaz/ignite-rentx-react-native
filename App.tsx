@@ -1,19 +1,35 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+    Archivo_400Regular,
+    Archivo_400Regular_Italic,
+    Archivo_500Medium,
+    Archivo_600SemiBold
+} from '@expo-google-fonts/archivo';
+import {useFonts, Inter_400Regular, Inter_500Medium} from '@expo-google-fonts/inter';
+import {ThemeProvider} from "styled-components";
+import AppLoading from 'expo-app-loading';
+
+import theme from './src/theme/theme';
+import Routes from './src/routes';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
-}
+    const [fontLoaded] = useFonts({
+        Archivo_400Regular,
+        Archivo_400Regular_Italic,
+        Archivo_500Medium,
+        Archivo_600SemiBold,
+        Inter_400Regular,
+        Inter_500Medium
+    });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    if (!fontLoaded) {
+        return <AppLoading/>
+    }
+
+    return (
+        <ThemeProvider theme={theme}>
+            <Routes/>
+        </ThemeProvider>
+    );
+}
